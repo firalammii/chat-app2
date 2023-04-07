@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { MyMessage } from './MessageShow';
 import { TheirMessage } from './MessageShow';
 
@@ -8,7 +8,7 @@ const Messages = () => {
 
     const messagesEndRef = useRef(null);
 
-    const { currUser, currChat, updateCurrChat } = useContext(Context);
+    const { currUser, currChat } = useContext(Context);
     console.log('currChat', currChat);
 
     const chatFriend = currChat?.users.filter(friend => friend._id !== currUser._id)[0];

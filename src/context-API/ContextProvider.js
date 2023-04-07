@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchChats, updateChat } from "../utils/chats-utils.js";
-import { fetchUsers, login } from "../utils/users-utils.js";
+import { fetchChats } from "../utils/chats-utils.js";
+import { fetchUsers } from "../utils/users-utils.js";
 
 export const Context = createContext();
 

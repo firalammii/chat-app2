@@ -7,7 +7,7 @@ import { Context } from '../context-API/ContextProvider';
 
 const Navbar = () => {
 
-    const { currUser, currChat, updateCurrChat } = useContext(Context);
+    const { currUser, currChat } = useContext(Context);
     // console.log('currChat', currChat);
     // console.log('currUser', currUser);
 

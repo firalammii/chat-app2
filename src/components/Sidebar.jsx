@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { setActiveFriend } from '../utils/users-utils';
-import { createChat, setActiveChat } from '../utils/chats-utils.js';
+import { createChat } from '../utils/chats-utils.js';
 import { Context } from '../context-API/ContextProvider';
 
 const Sidebar = () => {
@@ -11,7 +11,7 @@ const Sidebar = () => {
     const [searchedFriends, setSerchedFriends] = useState([]);
     const [searchKey, setSearchKey] = useState('');
 
-    const { users, chats, currChat, currUser, setCurrChat } = useContext(Context);
+    const { users, chats, currUser, setCurrChat } = useContext(Context);
     // console.log('currChat:', currChat)
     // console.log('currUser:', currUser);
     // console.log('chats:', chats)
