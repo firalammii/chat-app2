@@ -10,12 +10,6 @@ export const userActionTypes = {
     ACTIVE_FRIEND: 'ACTIVE_FRIEND',
 };
 
-export const messagesActionTypes = {
-    FETCH_MESSAGES: 'FETCH_MESSAGES',
-    CREATE_MESSAGE: 'CREATE_MESSAGE',
-    UPDATE_MESSAGE: 'UPDATE_MESSAGE',
-    DELETE_MESSAGE: 'DELETE_MESSAGE',
-};
 
 export const chatsActionTypes = {
     FETCH_CHATS: 'FETCH_CHATS',
@@ -24,4 +18,13 @@ export const chatsActionTypes = {
     UPDATE_ACTIVE_CHAT: 'UPDATE_ACTIVE_CHAT',
     DELETE_CHAT: 'DELETE_CHAT',
     SELECT_CHAT: 'SELECT_CHAT',
+    ADD_MESSAGE: 'ADD_MESSAGE'
+};
+
+
+export const messagesActionTypes = {
+    FETCH_MESSAGES: 'FETCH_MESSAGES',
+    CREATE_MESSAGE: 'CREATE_MESSAGE',
+    UPDATE_MESSAGE: 'UPDATE_MESSAGE',
+    DELETE_MESSAGE: 'DELETE_MESSAGE',
 };

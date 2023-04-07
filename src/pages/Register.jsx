@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FileBase from 'react-file-base64';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { createUser } from '../actions/usersAction';
+import { createUser } from '../utils/users-utils.js';
 
 const Register = () => {
+
     const [user, setUser] = useState({
         displayName: '', email: '', password: '', pp: ''
     });
+
     const [error, setError] = useState(false);
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     async function handleSubmit (e) {
@@ -22,13 +22,13 @@ const Register = () => {
             if (!displayName || !email || !password) {
                 throw error;
             }
-            dispatch(createUser(user));
+            await createUser(user);
             setUser({ displayName: '', email: '', password: '', pp: '' });
             navigate('/login');
             setError(false);
         } catch (err) {
             setError(true);
-            console.log(err.message);
+            console.log(err);
         }
 
     }

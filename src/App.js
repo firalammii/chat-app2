@@ -1,29 +1,28 @@
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
 
-import { fetchUsers } from './actions/usersAction';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './styles.scss';
-import { fetchChats } from './actions/chatsActionDispatcher';
+import { fetchUsers } from './utils/users-utils.js';
+import { fetchChats } from './utils/chats-utils.js';
+import { Context } from './context-API/ContextProvider';
 
 const App = () => {
 
-  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   fetchUsers();
+  //   fetchChats();
+  // }, []);
 
-  useEffect(() => {
-    dispatch(fetchUsers())
-    dispatch(fetchChats());
-  }, [dispatch]);
+  const { currUser } = useContext(Context);
+  console.log(`currUser:`, currUser)
 
-  const currentUser = useSelector(state => state.users.currentUser);
-  console.log(`currentUser:`, currentUser)
   const ProtectedPage = ({ children }) => {
-    if (!currentUser) return <Navigate to='/login' />;
+    if (!currUser) return <Navigate to='/login' />;
     return children;
   }
 
@@ -33,7 +32,7 @@ const App = () => {
         <Routes path='/'>
           <Route index element={
             <ProtectedPage>
-              {!currentUser ? <CircularProgress /> : <Home />}
+              {!currUser ? <CircularProgress /> : <Home />}
             </ProtectedPage>
           } />
           <Route path="/login" element={<Login />} />

@@ -1,40 +1,37 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded';
 import SendIcon from '@mui/icons-material/Send';
-import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import { updateChat } from '../actions/chatsActionDispatcher';
+import { addMessage } from '../utils/chats-utils.js';
+import { Context } from '../context-API/ContextProvider';
 
-const TypingArea = ({ toggleMsgSent }) => {
+const TypingArea = () => {
 
     const [text, setText] = useState('');
 
-    const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.users.currentUser);
-    // const activeFriend = useSelector(state => state.users.activeFriend);
-    const activeChat = useSelector(state => state.chats.activeChat);
-    // console.log(activeChat);
+    const { currChat, currUser, updateCurrChat } = useContext(Context);
 
-    const sendMessage = (e) => {
+    const sendMessage = async (e) => {
         e.preventDefault();
         console.log('sending ...');
         const msgObj = {
             id: uuidv4(),
-            chatId: activeChat._id,
+            chatId: currChat._id,
             message: text,
-            sender: currentUser._id,
-            attachments: []
+            sender: currUser._id,
+            attachments: [],
+            createdOn: new Date()
         };
 
-        dispatch(updateChat(activeChat._id, msgObj));
+        await addMessage(currChat._id, msgObj);
         setText('');
-        toggleMsgSent();
+        await updateCurrChat(msgObj);
     }
 
     return (
-        <div className='typing-area'>
+        <div className='typing-area' id='typing-area'>
             <form className='typing-form' onSubmit={sendMessage}>
                 <input
                     className='type-input'

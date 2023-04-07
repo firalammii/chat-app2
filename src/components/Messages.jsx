@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { MyMessage } from './TextDisplayer';
-import { TheirMessage } from './TextDisplayer';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchChats } from '../actions/chatsActionDispatcher';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { MyMessage } from './MessageShow';
+import { TheirMessage } from './MessageShow';
+
+import { Context } from '../context-API/ContextProvider';
 
 const Messages = () => {
-    const [currentChat, setCurrentChat] = useState('');
 
-    const dispatch = useDispatch();
+    const messagesEndRef = useRef(null);
+
+    const { currUser, currChat, updateCurrChat } = useContext(Context);
+    console.log('currChat', currChat);
+
+    const chatFriend = currChat?.users.filter(friend => friend._id !== currUser._id)[0];
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     useEffect(() => {
-        dispatch(fetchChats());
-
-
-    }, []);
-
-    const activeChat = useSelector(state => state.chats.activeChat);
-    const currentUser = useSelector(state => state.users.currentUser);
-    // console.log(activeChat)
-    const chatFriend = activeChat && activeChat.users.filter(friend => friend._id !== currentUser._id)[0]
+        scrollToBottom();
+    }, [currChat]);
 
     return (
-        activeChat && activeChat.messages.length > 0 &&
-        activeChat.messages.map(message => {
-            const myMessage = currentUser._id === message.sender;
-            console.log(myMessage);
+        currChat && currChat.messages.length > 0 &&
+        currChat.messages.map(message => {
+            // console.log(message)
+            const myMessage = currUser._id === message.sender;
+            // console.log(myMessage);
             return (
-                <div className='messages'>
+                <div key={message.id} className='messages' ref={messagesEndRef}>
                     {
                         myMessage ?
                             <MyMessage
-                                key={message.id}
+                                // key={message.id}
                                 message={message} 
-                                user={currentUser}
+                                user={currUser}
                             />
                             : <TheirMessage
-                                key={message.text}
+                                // key={message.text}
                                 message={message}
                                 user={chatFriend}
                             />

@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchUsers, login, logout } from "../actions/usersAction";
+import { Context } from "../context-API/ContextProvider";
 
 const Login = () => {
 
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchUsers());
-    }, [])
-
-    const users = useSelector(state => state.users.users);
-    const currentUser = useSelector(state => state.users.currentUser);
+    const { users, setCurrUser } = useContext(Context)
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        if (currentUser) dispatch(logout(currentUser));
-
         const email = e.target[0].value.trim();
         const password = e.target[1].value.trim();
 
         const user = await users.filter(user => (user.email === email && user.password === password))[0];
         if (user) {
-            dispatch(login(user));
+            setCurrUser(user)
             navigate('/');
             setError(false);
         } else setError(true);
