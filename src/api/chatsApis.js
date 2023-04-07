@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = 'http://localhost:3000/chats';
-// const API_URL = 'https://faya-chat-app-api.onrender.com/chats';
+// const API_URL = 'http://localhost:3000/chats';
+const API_URL = 'https://faya-chat-app-api.onrender.com/chats';
 
 export const fetchChats = () => axios.get(API_URL);
 export const createChat = (chatObj) => axios.post(API_URL, chatObj);
