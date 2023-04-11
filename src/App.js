@@ -10,14 +10,8 @@ import './styles.scss';
 import { Context } from './context-API/ContextProvider';
 
 const App = () => {
-
-  // useEffect(() => {
-  //   fetchUsers();
-  //   fetchChats();
-  // }, []);
-
   const { currUser } = useContext(Context);
-  console.log(`currUser:`, currUser)
+  // console.log(`currUser:`, currUser)
 
   const ProtectedPage = ({ children }) => {
     if (!currUser) return <Navigate to='/login' />;
