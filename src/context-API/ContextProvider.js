@@ -22,6 +22,7 @@ const ContextProvider = ({ children }) => {
         // setInterval(initializeAllStates, 500);
         initializeAllStates();
     }, [currChat]);
+
     const initializeAllStates = async () => {
         const fusers = await fetchUsers();
         const fchats = await fetchChats();
